@@ -1,0 +1,173 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPIwzkkV9dcaEJQJCzpGdeg",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/aluongleekalierleek/lab-4-llm-decision-support/blob/main/requirements.txt\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HQkvUR7-fv1-",
+        "outputId": "051352ca-563b-4e5c-b523-23d6595ac6d1"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "API key loaded successfully!\n"
+          ]
+        }
+      ],
+      "source": [
+        "from google.colab import userdata\n",
+        "\n",
+        "API_KEY = userdata.get(\"GROQ_API_KEY\")\n",
+        "print(\"API key loaded successfully!\")\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from openai import OpenAI\n",
+        "\n",
+        "client = OpenAI(\n",
+        "    api_key=API_KEY,\n",
+        "    base_url=\"https://api.groq.com/openai/v1\",   # Groq’s endpoint\n",
+        ")\n",
+        "\n",
+        "MODEL = \"llama-3.3-70b-versatile\"\n",
+        "print(\"Client ready.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mnL8a1HDwyzN",
+        "outputId": "1d8b381d-a3f2-4099-9438-0383759ab3e0"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Client ready.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def ask_llm(prompt):\n",
+        "    response = client.chat.completions.create(\n",
+        "        model=MODEL,\n",
+        "        messages=[{\"role\": \"user\", \"content\": prompt}],\n",
+        "    )\n",
+        "    return response.choices[0].message.content\n",
+        "\n",
+        "print(ask_llm(\"what is the best way to improve grades since we are left with only 2 weeks to final exams, please i need the most top effective ones\"))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "h9cv3_zlxLzZ",
+        "outputId": "388ead0c-1d49-4a50-c5b4-26b86d94537c"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "With only 2 weeks left before the final exams, it's essential to focus on the most effective strategies to improve your grades. Here are the top effective ways to boost your grades in a short span:\n",
+            "\n",
+            "1. **Create a Study Plan**: Make a detailed schedule for the next 2 weeks, setting specific goals for each day and each subject. Break down your study material into manageable chunks, and allocate time for each topic.\n",
+            "2. **Identify Weak Areas**: Analyze your past performances, and identify the areas where you need the most improvement. Focus on those topics and allocate more time to review and practice them.\n",
+            "3. **Active Recall**: Instead of just re-reading your notes, actively try to recall the information by:\n",
+            "\t* Making flashcards\n",
+            "\t* Creating concept maps\n",
+            "\t* Summarizing notes in your own words\n",
+            "\t* Self-testing with practice questions\n",
+            "4. **Practice Past Exams and Questions**: Get hold of past exams, quizzes, or practice questions, and attempt to solve them under timed conditions. This will help you:\n",
+            "\t* Familiarize yourself with the exam format\n",
+            "\t* Identify areas where you need more practice\n",
+            "\t* Develop time management skills\n",
+            "5. **Teach Someone Else**: Teach the concepts you're studying to someone else, such as a classmate or family member. This will help you:\n",
+            "\t* Reinforce your own understanding\n",
+            "\t* Identify areas where you need more practice\n",
+            "\t* Retain information better\n",
+            "6. **Use Active Learning Techniques**: Incorporate active learning techniques, such as:\n",
+            "\t* Mnemonics\n",
+            "\t* Visualization\n",
+            "\t* Storytelling\n",
+            "\t* Creating rhymes or songs\n",
+            "7. **Get Enough Sleep and Stay Hydrated**: Make sure you're getting at least 7-8 hours of sleep each night and staying hydrated throughout the day. This will help you:\n",
+            "\t* Stay focused and alert\n",
+            "\t* Retain information better\n",
+            "\t* Perform better under pressure\n",
+            "8. **Seek Help When Needed**: Don't hesitate to ask for help if you're struggling with a particular concept or subject. Reach out to:\n",
+            "\t* Your teachers or professors\n",
+            "\t* Classmates or study groups\n",
+            "\t* Online resources or tutoring services\n",
+            "9. **Use Time Management Tools**: Utilize time management tools, such as:\n",
+            "\t* Pomodoro timers\n",
+            "\t* Study apps\n",
+            "\t* Browser extensions\n",
+            "\t* Mobile apps\n",
+            "10. **Stay Motivated**: Remind yourself of your goals and why you're working hard. Use positive self-talk, and reward yourself for reaching milestones.\n",
+            "\n",
+            "Additional Tips:\n",
+            "\n",
+            "* Avoid cramming and try to maintain a consistent study schedule.\n",
+            "* Use different colors, highlights, and formatting to make your notes more engaging and easy to review.\n",
+            "* Take breaks to avoid burnout, but make sure they're scheduled and don't exceed 10-15 minutes.\n",
+            "* Stay organized, and keep all your study materials in one place.\n",
+            "\n",
+            "Remember, with only 2 weeks left, it's crucial to stay focused, motivated, and consistent. By implementing these effective strategies, you'll be well-prepared to tackle your final exams and improve your grades.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "with open(\"requirements.txt\", \"w\") as f:\n",
+        "    f.write(\"openai\\npython-dotenv\\npandas\\nmatplotlib\\n\")\n"
+      ],
+      "metadata": {
+        "id": "T56VoiSzx-aj"
+      },
+      "execution_count": 4,
+      "outputs": []
+    }
+  ]
+}
